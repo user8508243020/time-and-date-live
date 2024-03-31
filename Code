@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date and Time</title>
+  <style>
+    body {
+      font-family: 'Russo One', sans-serif;
+      color: white;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1></h1>
+  <p id="datetime"></p>
+  <p id="daysUntilFriday"></p>
+
+  <script>
+    // Function to update date and time
+    function updateDateTime() {
+      var currentDate = new Date();
+      var dateFormatted = currentDate.toDateString();
+      var timeFormatted = currentDate.toLocaleTimeString();
+      document.getElementById("datetime").innerHTML = " " + dateFormatted + "<br> " + timeFormatted;
+    }
+
+    // Function to calculate days until next Friday
+    function daysUntilFriday() {
+      var currentDate = new Date();
+      var dayOfWeek = currentDate.getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
+      var daysUntilFriday = 5 - dayOfWeek; // Friday is 5 in JavaScript's date object
+      if (daysUntilFriday <= 0) {
+        daysUntilFriday += 7; // If today is Friday or later, count days until next Friday
+      }
+      return daysUntilFriday;
+    }
+
+    // Function to update days until Friday
+    function updateDaysUntilFriday() {
+      var days = daysUntilFriday();
+      var daysText = (days === 1) ? "day" : "days";
+      document.getElementById("daysUntilFriday").innerHTML = "Days until Friday: " + days + " " + daysText;
+    }
+
+    // Initial updates
+    updateDateTime();
+    updateDaysUntilFriday();
+
+    // Update date and time every second (1000 milliseconds)
+    setInterval(updateDateTime, 1000);
+    
+    // Update days until Friday every hour (3600000 milliseconds)
+    setInterval(updateDaysUntilFriday, 3600000);
+  </script>
+</body>
+</html>
